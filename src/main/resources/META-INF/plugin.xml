@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>co.anbora.labs.close.without.breakpoint</id>
-    <name>Close Tabs Without Breakpoints</name>
+    <name>Close Without Breakpoints (Lifetime)</name>
     <vendor email="support@anbora.co" url="https://labs.anbora.co">Anbora Labs</vendor>
     <!-- Product descriptor for JetBrains Marketplace paid plugin with trial -->
     <!-- IMPORTANT: Replace release-date with actual release date in YYYYMMDD format -->
