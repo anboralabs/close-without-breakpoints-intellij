@@ -144,7 +144,7 @@ public class CheckLicense {
       registerAction = actionManager.getAction("Register");
     }
     if (registerAction != null) {
-      ActionUtil.performAction(registerAction, AnActionEvent.createEvent(
+      ActionUtil.performActionDumbAwareWithCallbacks(registerAction, AnActionEvent.createEvent(
               asDataContext(productCode, message),
               new Presentation(),
               "",

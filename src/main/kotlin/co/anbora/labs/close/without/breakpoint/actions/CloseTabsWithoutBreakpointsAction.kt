@@ -4,6 +4,8 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ReadAction
+import java.util.concurrent.CompletableFuture
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.DumbAware
@@ -46,31 +48,34 @@ class CloseTabsWithoutBreakpointsAction : AnAction(), DumbAware {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
 
-        // Perform the tab closing operation on EDT
-        ApplicationManager.getApplication().invokeLater {
-            if (project.isDisposed) {
-                LOG.warn("Project disposed before action could execute")
-                return@invokeLater
+        CompletableFuture.supplyAsync {
+            ReadAction.compute<Set<VirtualFile>, Throwable> {
+                getFilesWithEnabledBreakpoints(project)
             }
+        }.thenAcceptAsync({ filesWithEnabledBreakpoints ->
+            ApplicationManager.getApplication().invokeLater {
+                if (project.isDisposed) {
+                    LOG.warn("Project disposed before action could execute")
+                    return@invokeLater
+                }
 
-            try {
-                closeTabsWithoutBreakpoints(project)
-            } catch (e: Exception) {
-                LOG.error("Error closing tabs without breakpoints", e)
+                try {
+                    closeTabsWithoutBreakpoints(project, filesWithEnabledBreakpoints)
+                } catch (e: Exception) {
+                    LOG.error("Error closing tabs without breakpoints", e)
+                }
             }
-        }
+        })
     }
 
     /**
      * Core logic: identifies files with enabled breakpoints and closes all other open tabs.
      *
      * @param project The current project
+     * @param filesWithEnabledBreakpoints Files with enabled breakpoints
      */
-    private fun closeTabsWithoutBreakpoints(project: Project) {
-        // Step 1: Collect all files that have at least one enabled line breakpoint
-        val filesWithEnabledBreakpoints = getFilesWithEnabledBreakpoints(project)
-
-        LOG.info("Found ${filesWithEnabledBreakpoints.size} files with enabled line breakpoints")
+    private fun closeTabsWithoutBreakpoints(project: Project, filesWithEnabledBreakpoints: Set<VirtualFile>) {
+        LOG.info("Found ${filesWithEnabledBreakpoints.size} files with enabled line breakpoints in background")
 
         // Step 2: Get all currently open files
         val fileEditorManager = FileEditorManager.getInstance(project)

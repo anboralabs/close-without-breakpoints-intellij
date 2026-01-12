@@ -29,7 +29,7 @@
         <!-- Editor tab context menu action to close tabs without breakpoints -->
         <action id="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction"
                 class="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction">
-            <add-to-group group-id="EditorTabPopupMenu" anchor="last"/>
+            <add-to-group group-id="CloseEditorsGroup" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
