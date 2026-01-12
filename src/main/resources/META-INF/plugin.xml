@@ -16,16 +16,19 @@
     <!-- Extensions defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <postStartupActivity implementation="co.anbora.labs.close.without.breakpoint.startup.SetupStartup" />
     </extensions>
+
+    <applicationListeners>
+        <listener class="co.anbora.labs.close.without.breakpoint.startup.LicenseAppLifecycleListener"
+                  topic="com.intellij.ide.AppLifecycleListener"/>
+    </applicationListeners>
 
     <!-- Actions -->
     <actions>
         <!-- Editor tab context menu action to close tabs without breakpoints -->
         <action id="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction"
-                class="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction"
-                text="Close Tabs Without Breakpoints"
-                description="Close all editor tabs that do not have at least one enabled line breakpoint">
+                class="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction">
             <add-to-group group-id="EditorTabPopupMenu" anchor="last"/>
         </action>
     </actions>
