@@ -1,0 +1,32 @@
+<!-- Plugin Configuration File: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>co.anbora.labs.close.without.breakpoint</id>
+    <name>Close Tabs Without Breakpoints</name>
+    <vendor email="support@anbora.co" url="https://labs.anbora.co">Anbora Labs</vendor>
+    <!-- Product descriptor for JetBrains Marketplace paid plugin with trial -->
+    <!-- IMPORTANT: Replace release-date with actual release date in YYYYMMDD format -->
+    <product-descriptor code="PCLOSEBREAK" release-date="20250109" release-version="10"/>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.xdebugger</depends>
+
+    <resource-bundle>messages.MessageBundle</resource-bundle>
+    <!-- Extensions defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+
+    <!-- Actions -->
+    <actions>
+        <!-- Editor tab context menu action to close tabs without breakpoints -->
+        <action id="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction"
+                class="co.anbora.labs.close.without.breakpoint.actions.CloseTabsWithoutBreakpointsAction"
+                text="Close Tabs Without Breakpoints"
+                description="Close all editor tabs that do not have at least one enabled line breakpoint">
+            <add-to-group group-id="EditorTabPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
