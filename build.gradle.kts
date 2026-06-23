@@ -41,7 +41,7 @@ dependencies {
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
-    implementation("io.sentry:sentry:6.15.0")
+    implementation("io.sentry:sentry:8.31.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.0")
     // implementation(kotlin("stdlib"))
