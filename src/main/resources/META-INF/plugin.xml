@@ -5,7 +5,7 @@
     <vendor email="support@anbora.co" url="https://labs.anbora.co">Anbora Labs</vendor>
     <!-- Product descriptor for JetBrains Marketplace paid plugin with trial -->
     <!-- IMPORTANT: Replace release-date with actual release date in YYYYMMDD format -->
-    <product-descriptor code="PCLOSEBREAK" release-date="20260518" release-version="12"/>
+    <product-descriptor code="PCLOSEBREAK" release-date="20260906" release-version="13"/>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
